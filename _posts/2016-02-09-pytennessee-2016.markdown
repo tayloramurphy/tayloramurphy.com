@@ -1,0 +1,115 @@
+---
+title: PyTennessee 2016
+date: 2016-02-09T07:49:37+00:00
+author: Taylor Murphy
+layout: post
+permalink: /pytn2016/
+---
+This past weekend was PyTennessee 2016 here in Nashville, TN. For the money, it's the best bang for your buck by far. High quality talks and less than $50. I wanted to briefly share some of the things I learned and some of my takeaways from the conference.
+
+### Type python, press enter, what happens? by Philip James
+This was a fun talk that answered the question of what's actually happening when you enter the python interpreter from the command line. I'll briefly share my notes.
+
+The bash shell is the command language for interacting with unix operating system. It's really a program for finding and running other programs and doing some other work as well. To figure out where bash is going to look for programs, you can do 
+
+`$ echo $PATH`
+
+My computer spits back:
+
+`/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/Users/tayloramurphy/bin`
+
+The next step was to figure out which python you were running and where it is.
+
+`$ which python`  returns `/usr/local/bin/python`. If you then do:
+
+`$ file /user/local/bin/python` you get back `/usr/local/bin/python: Mach-O 64-bit executable x86_64`. 
+
+He then did `hexdump -C /usr/local/bin/python` which spits out the contents of the file in Hexadecimal. He then talked about "ELF" but I sort of lost him at that point.
+
+We then started diving into more of the bash internals. When you type 
+
+`exec python`
+
+it's actually converting the current process to a python process. This means that when you quit the python process, it ends the session and, in the case of iTerm, closes the window. But when you call python normal, bash first calls fork(), which creates a copy of itself, then calls exec() which transforms the fork into a new process. 
+
+He also briefly talked about pstree which is a package that allows you to see the current processes as a tree. Install it via `brew install pstree`.
+
+He then did a short sidenote on verbose mode in python. This can be done by `python -v` which is basically equivalent to `exec('usr/local/bin/python', ['python','-v'])`. The array part at the end is cool to me because it's just passing the arguments as a list into bash.
+
+The next part started to lose me a little bit. He talked briefly about how much of how a computer works internally is dervied from old teletype machines which had to send commands to and from a server and all you had was, essentially, a keyboard to work with. I'm just going to copy my notes from that as is and if I ever feel inspired I'll look into this more.
+
+{% highlight python %}
+Input/Output
+file descriptor 0 (stdin)
+file descriptor 1 (stdout)
+file descriptor 2 (errors)
+
+0: /dev/pts/3 is stdin (standard input) pseudoterminal
+termios layer mimics telephone line connection to a server and back
+
+so why does CTRL+C not work? Sends the signal to sigint (signal interrupt)
+{% endhighlight %}
+
+Overall, it was a very good talk and I do feel like I learned some things.
+
+---
+
+I then attended three talks, one with a guy from NASA which, while it had a cool premise, wasn't terribly interesting. He wasn't the best presenter unfortunately and it took away from the (meager) content. The next talk was about Jupyter Kernels. The speaker was much more engaging and very clearly explained how kernels work behind the scene. It didn't really catch my attention and I just wasn't that interested in it (though the messaging system was cool). The last talk was about elasticsearch but I didn't get as much out of that one as I'd hoped either.
+
+---
+### Duck, Duck, Moose. by Brian Costlow
+This was a good talk and my main takeaway is that I think I finally get what duck typing is. Duck typing is based off the quote attributed to James Whitcomb Riley:
+
+> When I see a bird that walks like a duck and swims like a duck and quacks like a duck, I call that bird a duck.
+
+What this means is that, particularly with python, it's better to do a try and except statement instead of explicitly checking for the type of the object. This is more relevant for object-oriented programming, but it makes sense in general, I think.
+
+Another thing I learned is that you can do exceptions like this 
+
+{% highlight python %}
+try:
+	duck.quack()
+
+except AttributeError:
+	print("you can't quack")
+
+except Exception as err:
+	print("Got this error {}".format(err))
+	raise 
+{% endhighlight %}
+
+which seems like a cool way to handle a specific error you care about and then deal with all the other ones in another manner. 
+
+I also learned a bit about function annotations which can be added to a function without having an effect at run time. An example would be:
+
+{% highlight python %}
+def adder (first: int, second: int) -> int:
+	return first + second
+{% endhighlight %}
+
+which just gives more information about type hinting. These can be used in some linters and code editors (but I'm not sure what else you gain by this versus good docstrings).
+
+I also learned about this little tidbit which will allow to get back the stack trace and do whatever you want with it on an error: `https://docs.python.org/2/library/sys.html#sys.exc_info`
+
+Overall, an enjoyable talk with some actionable takeaways.
+
+--- 
+### Test-Driven Development with Python by Kevin Harvey
+This was a good talk given by the guy who wrote Test-Driven Development with Django. Not too many takeaways because I'm already writing some tests, but the big thing was Three A's:
+
+* Arrange
+* Act
+* Assert
+
+This means that you first arrange the data however you need to be for your test. Do the action that you're testing, and then assert that the result is what you expect it to be.
+
+Some other points are to:
+
+1. Write tests for bug reports - meaning if you see a bug, write a test for it, fix it, and then you'll never have to deal with it again.
+
+2. Use TDD for new features - write your tests as you're going. A test is basically a hypothesis of what should happen. 
+
+3. Write unit tests for existing code you use while doing 1 and 2 - This will help you clear out some of the technical debt.
+
+---
+PyTennessee is a great budget conference and I look forward to it every year. Hopefully I can give a talk at the next one...
