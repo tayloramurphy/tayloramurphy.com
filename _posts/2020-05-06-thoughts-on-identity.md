@@ -1,5 +1,5 @@
 ---
-title: The UX of Sharing Photos with Google Photos and Instagram
+title: Thoughts on Identity
 date: 2020-05-06T15:21:00+00:00
 author: Taylor Murphy
 layout: post
