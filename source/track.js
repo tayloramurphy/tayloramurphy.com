@@ -141,9 +141,15 @@
   }
 
   function use(list) {
-    tracks = list.filter((tr) => tr.points && tr.points.length >= 40);
+    tracks = list.filter((tr) => tr.points && tr.points.length >= 24);
     if (!tracks.length) return;
-    chosen = pick(tracks);
+    const want = new URLSearchParams(location.search).get("track");
+    chosen =
+      (want &&
+        tracks.find(
+          (tr) => tr.id === want || tr.name.toLowerCase() === want.toLowerCase()
+        )) ||
+      pick(tracks);
     canvas.dataset.track = chosen.id;
     const label = document.getElementById("track-label");
     if (label) label.textContent = chosen.name;
