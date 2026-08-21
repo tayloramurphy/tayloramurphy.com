@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tamweb"
+version = "0.1.0"
+description = "Static site builder for tayloramurphy.com"
+requires-python = ">=3.12"
+dependencies = [
+    "jinja2>=3.1",
+    "markdown-it-py>=3.0",
+    "pyyaml>=6.0",
+    "Pygments>=2.18",
+]
+
+[project.scripts]
+tamweb = "tamweb.build:main"
+
+[dependency-groups]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

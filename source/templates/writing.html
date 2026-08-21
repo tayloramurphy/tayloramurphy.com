@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block main %}
+<section class="section">
+  <div class="wrap">
+    <h1 class="page-title">Writing</h1>
+
+    {% for year in years %}
+    <h2 class="year-head">{{ year }}</h2>
+    <ul class="write-list">
+      {% for post in by_year[year] %}
+      <li class="write-item">
+        <span class="meta">{{ post.date.strftime("%b %-d") }}</span>
+        <div>
+          <a href="{{ post.href }}"{% if post.external %} rel="noopener noreferrer"{% endif %}>{{ post.title }}</a>
+          {% if post.venue %}<p class="venue">{{ post.venue }}</p>{% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

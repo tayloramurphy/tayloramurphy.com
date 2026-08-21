@@ -1,0 +1,10 @@
+{
+  // Static site, no Worker script. Cloudflare serves public/ from its
+  // asset store. Run `uv run tamweb` before `npx wrangler deploy`.
+  "name": "tayloramurphy-com",
+  "compatibility_date": "2026-08-21",
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "404-page"
+  }
+}

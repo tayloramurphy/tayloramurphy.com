@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block main %}
+<article class="section post">
+  <div class="wrap post-wrap">
+    <header class="post-head">
+      <p class="post-date">{{ post.date.strftime("%B %-d, %Y") }}</p>
+      <h1>{{ post.title }}</h1>
+    </header>
+    <div class="prose">
+      {{ body | safe }}
+    </div>
+    <p class="more"><a href="/writing/">All writing</a></p>
+  </div>
+</article>
+{% endblock %}

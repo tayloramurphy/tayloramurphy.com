@@ -1,6 +1,11 @@
-_site
-.sass-cache
-.jekyll-metadata
-.jekyll-cache
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
 public/
-_drafts/
+.DS_Store
+source/shot-*.png
+source/homepage.png
+source/homepage.html
+source/palettes.html
+source/palettes.png
