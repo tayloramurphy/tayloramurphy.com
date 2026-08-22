@@ -1,8 +1,8 @@
 # tayloramurphy.com
 
-Consolidated source for [tayloramurphy.com](https://tayloramurphy.com/).
+Source for [tayloramurphy.com](https://tayloramurphy.com/), built with `tamweb` and deployed on Cloudflare.
 
-This repo is the GitLab Pages Jekyll site (`tayloramurphy/tayloramurphy.gitlab.io`) plus the only unique files from the older GitHub Pages repo (`tayloramurphy/tayloramurphy.github.io`). Overlapping posts were not copied twice.
+The post archive is the GitLab Pages Jekyll site (`tayloramurphy/tayloramurphy.gitlab.io`) plus the only unique files from the older GitHub Pages repo (`tayloramurphy/tayloramurphy.github.io`). Overlapping posts were not copied twice.
 
 ## Remotes
 
@@ -23,11 +23,9 @@ Added from GitHub, because they were not on GitLab:
 
 GitHub had 12 posts on `master`; 11 of those were already on GitLab. GitLab has 104 posts total, including the WordPress-era archive (2012–2014) under `_posts/` and images under `wp-content/uploads/`.
 
-`about.md` is leftover Jekyll theme boilerplate, not a real about page.
+## Build
 
-## Build the new site
-
-Night-telemetry static site. Posts keep their old permalinks.
+Static site. Posts keep their old permalinks.
 
 ```sh
 uv sync --group dev
@@ -64,6 +62,4 @@ Every push to `master` redeploys. Other branches get a preview URL.
 
 `tayloramurphy.com` is an apex domain. Cloudflare wants apex domains on the same account, so the nameservers have to move off Porkbun onto Cloudflare (same as `starsystems.to`). There are currently no MX records on this domain.
 
-Until that cutover, Porkbun still points the apex at GitLab Pages and the Let’s Encrypt cert there is expired.
-
-GitHub Pages at `tayloramurphy.github.io` is a separate, older build and is not the custom domain.
+GitHub Pages at `tayloramurphy.github.io` is a separate, older build and is not this domain.

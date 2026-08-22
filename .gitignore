@@ -4,8 +4,3 @@ __pycache__/
 .pytest_cache/
 public/
 .DS_Store
-source/shot-*.png
-source/homepage.png
-source/homepage.html
-source/palettes.html
-source/palettes.png
