@@ -6,7 +6,7 @@ layout: post
 permalink: /transparency-in-a-pandemic/
 ---
 
-I am deeply frustrated by people and organizations that do not exhibit high levels of transparency. It's frustrating because I know that being transparent is totally possible and the primary reasons given for not being transparent are fear-based reasoning or just plain bullshit. I'm lucky enough to work at a company that claims to [value transparency](https://about.gitlab.com/handbook/values/#transparency) and actually follows through, so I know it can be done.
+I am deeply frustrated by people and organizations that do not exhibit high levels of transparency. It's frustrating because I know that being transparent is totally possible and the primary reasons given for not being transparent are fear-based reasoning or just plain bullshit. I'm lucky enough to work at a company that claims to [value transparency](https://handbook.gitlab.com/handbook/values/#transparency) and actually follows through, so I know it can be done.
 
 My recent frustration has been focused on my son's school. Like basically everyone else in the world, his school is shut down for the rest of the year due to COVID-19. My son is almost two, so technically at his age it's more of a day care, but being a Montessori school they like to think all age groups are in a school. However you describe it, it's been closed. 
 

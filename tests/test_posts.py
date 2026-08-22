@@ -1,3 +1,4 @@
+import re
 import shutil
 from datetime import datetime
 from pathlib import Path
@@ -109,12 +110,24 @@ def test_build_writes_permalink_directories(tmp_path: Path) -> None:
     assert (dest / "index.html").is_file()
     assert (dest / "writing" / "index.html").is_file()
     assert (dest / "meltano-introduction" / "index.html").is_file()
+    assert (dest / "favicon.svg").is_file()
+    assert (dest / "favicon.ico").is_file()
+    assert (dest / "apple-touch-icon.png").is_file()
+    home = (dest / "index.html").read_text(encoding="utf-8")
+    assert "<title>Taylor A Murphy</title>" in home
+    assert "Taylor A. Murphy" not in home
+    assert 'href="/favicon.svg"' in home
+    assert 'data-track-motion="still"' not in home
     html = (dest / "meltano-introduction" / "index.html").read_text(encoding="utf-8")
     assert "Introducing Meltano" in html
+    assert "<title>Introducing Meltano — Taylor A Murphy</title>" in html
     assert "Hello." in html
+    assert 'data-track-motion="still"' in html
     writing = (dest / "writing" / "index.html").read_text(encoding="utf-8")
+    assert "<title>Writing — Taylor A Murphy</title>" in writing
     assert "substack.com" in writing
     assert "Substack" in writing
+    assert 'data-track-motion="still"' not in writing
     assert "#FF3B30" in (dest / "styles.css").read_text(encoding="utf-8")
     assert "#3DFFB0" not in (dest / "styles.css").read_text(encoding="utf-8")
 
@@ -130,3 +143,23 @@ def test_real_archive_has_unique_permalinks() -> None:
     assert "/meltano-introduction/" in permalinks
     assert "/the-beginning/" in permalinks
     assert "/okrs/" in permalinks
+
+
+def test_gitlab_blog_links_use_dateless_paths() -> None:
+    root = Path(__file__).resolve().parents[1] / "_posts"
+    dated = []
+    for path in sorted(root.iterdir()):
+        if path.suffix not in {".md", ".markdown"}:
+            continue
+        dated.extend(
+            re.findall(
+                r"https://about\.gitlab\.com/blog/\d{4}/\d{2}/\d{2}/[^\s)\"']+",
+                path.read_text(encoding="utf-8"),
+            )
+        )
+    assert dated == []
+    meltano = (root / "2018-08-01-meltano-tool.md").read_text(encoding="utf-8")
+    assert (
+        "https://about.gitlab.com/blog/hey-data-teams-we-are-working-on-a-tool-just-for-you/"
+        in meltano
+    )

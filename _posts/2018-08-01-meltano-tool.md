@@ -8,4 +8,4 @@ permalink: /meltano-introduction/
 
 I co-authored a post introducing the Meltano project that's being worked on by a separate team within GitLab.
 
-Read about it [here](https://about.gitlab.com/blog/2018/08/01/hey-data-teams-we-are-working-on-a-tool-just-for-you/)
+Read about it [here](https://about.gitlab.com/blog/hey-data-teams-we-are-working-on-a-tool-just-for-you/)

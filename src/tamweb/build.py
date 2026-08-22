@@ -11,6 +11,7 @@ from pygments.formatters import HtmlFormatter
 from tamweb.posts import load_elsewhere, load_posts, render_markdown
 
 PACKAGE_ROOT = Path(__file__).resolve().parents[2]
+SITE_NAME = "Taylor A Murphy"
 
 
 def _env(templates: Path) -> Environment:
@@ -35,6 +36,10 @@ def _copy_static(root: Path, source: Path, public: Path) -> None:
     shutil.copytree(source / "fonts", public / "fonts")
     shutil.copytree(source / "img", public / "img")
     shutil.copytree(root / "wp-content", public / "wp-content")
+    for name in ("favicon.svg", "favicon.ico", "apple-touch-icon.png"):
+        src = source / name
+        if src.exists():
+            shutil.copy2(src, public / name)
     syntax = HtmlFormatter(style="native").get_style_defs(".highlight")
     (public / "syntax.css").write_text(
         syntax
@@ -55,7 +60,7 @@ def build(root: Path | None = None) -> Path:
     rendered = [(post, render_markdown(post.body)) for post in posts]
 
     home = env.get_template("home.html").render(
-        page_title="Taylor A. Murphy",
+        page_title=SITE_NAME,
     )
     (public / "index.html").write_text(home, encoding="utf-8")
 
@@ -65,7 +70,7 @@ def build(root: Path | None = None) -> Path:
     for item in index_entries:
         by_year[item.year].append(item)
     writing = env.get_template("writing.html").render(
-        page_title="Writing — Taylor A. Murphy",
+        page_title=f"Writing — {SITE_NAME}",
         years=sorted(by_year.keys(), reverse=True),
         by_year=by_year,
         count=len(index_entries),
@@ -80,7 +85,7 @@ def build(root: Path | None = None) -> Path:
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(
             post_tmpl.render(
-                page_title=f"{post.title} — Taylor A. Murphy",
+                page_title=f"{post.title} — {SITE_NAME}",
                 post=post,
                 body=html,
             ),
@@ -88,7 +93,7 @@ def build(root: Path | None = None) -> Path:
         )
 
     not_found = env.get_template("404.html").render(
-        page_title="Not found — Taylor A. Murphy",
+        page_title=f"Not found — {SITE_NAME}",
     )
     (public / "404.html").write_text(not_found, encoding="utf-8")
     return public

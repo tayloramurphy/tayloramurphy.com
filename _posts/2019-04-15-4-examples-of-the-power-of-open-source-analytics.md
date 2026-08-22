@@ -8,4 +8,4 @@ permalink: /open-source-analytics/
 
 I wrote a post on the GitLab blog talking about the benefits of being transparent and open on the data team.
 
-Read about it [here](https://about.gitlab.com/blog/2019/04/15/open-source-analytics/)
+Read about it [here](https://about.gitlab.com/blog/open-source-analytics/)

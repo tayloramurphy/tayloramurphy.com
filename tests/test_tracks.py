@@ -73,10 +73,34 @@ def test_home_header_is_name_and_roles() -> None:
     base = (Path(__file__).resolve().parents[1] / "source" / "templates" / "base.html").read_text(
         encoding="utf-8"
     )
-    assert "Taylor A Murphy." in home
-    assert "Engineer, Founder, Dad." in home
+    assert "<h1>Taylor A Murphy</h1>" in home
+    assert "Engineer, Founder, Dad" in home
+    assert "Taylor A Murphy." not in home
     assert "goofy ambitious dad" not in home
     assert "Taylor A Murphy" in base
+    assert 'rel="icon" href="/favicon.svg"' in base
+    assert "Taylor A. Murphy" not in base
+
+
+def test_home_selected_writing_is_recent_work() -> None:
+    home = (Path(__file__).resolve().parents[1] / "source" / "templates" / "home.html").read_text(
+        encoding="utf-8"
+    )
+    assert "What happens when a PM runs a coding agent" in home
+    assert "Being present isn't enough to slow time" in home
+    assert "Goodbye Arch. Long live Meltano." in home
+    assert "Analytics should be an Assembly Line" in home
+    assert "Lessons learned managing the GitLab Data team" in home
+    assert "thoughts-on-identity" not in home
+    assert "meltano-introduction" not in home
+
+
+def test_track_script_freezes_lights_on_reading_pages() -> None:
+    js = (Path(__file__).resolve().parents[1] / "source" / "track.js").read_text(
+        encoding="utf-8"
+    )
+    assert "dataset.trackMotion" in js
+    assert '=== "still"' in js
 
 
 def test_track_label_css_wraps_instead_of_truncating() -> None:

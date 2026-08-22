@@ -69,6 +69,10 @@
     return [a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u];
   }
 
+  function still() {
+    return reduce.matches || document.body.dataset.trackMotion === "still";
+  }
+
   function draw(progress) {
     ctx.clearRect(0, 0, w, h);
     if (!fitted.length) return;
@@ -82,7 +86,7 @@
     ctx.lineCap = "round";
     ctx.stroke();
 
-    if (reduce.matches) return;
+    if (still()) return;
 
     const [cx, cy] = along(progress);
     const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, 18);
@@ -133,7 +137,7 @@
     cancelAnimationFrame(raf);
     last = 0;
     layout();
-    if (reduce.matches) {
+    if (still()) {
       draw(0);
       return;
     }
