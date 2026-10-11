@@ -218,6 +218,8 @@ h1, h2, h3 {
 }
 .now-list li { color: var(--text); }
 .now-list span { color: var(--muted); }
+.now-list a { color: var(--ice); }
+.now-list a:hover { color: var(--accent); }
 
 .section { padding-block: clamp(3rem, 8vw, 5.5rem); }
 .section-label {

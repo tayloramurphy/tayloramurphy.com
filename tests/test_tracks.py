@@ -74,10 +74,16 @@ def test_home_header_is_name_and_roles() -> None:
         encoding="utf-8"
     )
     assert "<h1>Taylor A Murphy</h1>" in home
-    assert "Engineer, Founder, Dad" in home
+    assert 'Leading data engineering at <a href="https://mercury.com">Mercury</a>. Founder, Dad.' in home
+    assert "Still running" not in home
+    assert "on the side" not in home
+    assert home.count("https://starsystems.to/") == 1
+    assert "Advising Meltano" not in home
+    assert "If you want the serious version" not in home
     assert "Taylor A Murphy." not in home
     assert "goofy ambitious dad" not in home
     assert "Taylor A Murphy" in base
+    assert 'content="Taylor A Murphy. Leading data engineering at Mercury. Founder, Dad."' in base
     assert 'rel="icon" href="/favicon.svg"' in base
     assert "Taylor A. Murphy" not in base
 
